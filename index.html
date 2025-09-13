@@ -97,18 +97,23 @@
 	
 	<script type="text/javascript">
 		function startGame() {
-			if (typeof lime !== 'undefined') {
-				lime.embed ("Kade Engine", "openfl-content", 1280, 720, { parameters: {} });
-			} else if (typeof openfl !== 'undefined') {
-				openfl.embed ("Kade Engine", "openfl-content", 1280, 720, { parameters: {} });
+			if (typeof lime !== 'undefined' && lime.embed) {
+				console.log("Using lime.embed");
+				lime.embed("Kade Engine", "openfl-content", 1280, 720, { parameters: {} });
+			} else if (typeof openfl !== 'undefined' && openfl.embed) {
+				console.log("Using openfl.embed");
+				openfl.embed("Kade Engine", "openfl-content", 1280, 720, { parameters: {} });
+			} else if (typeof Application !== 'undefined') {
+				console.log("Using Application");
+				new Application();
 			} else {
-				console.error("Neither lime nor openfl found. Retrying in 1 second...");
-				setTimeout(startGame, 1000);
+				console.log("Engine not ready, retrying...");
+				setTimeout(startGame, 100);
 			}
 		}
 		
-		window.addEventListener('load', function() {
-			setTimeout(startGame, 500);
+		document.addEventListener('DOMContentLoaded', function() {
+			setTimeout(startGame, 1000);
 		});
 	</script>
 </body>
