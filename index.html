@@ -96,25 +96,19 @@
 	<div id="openfl-content"></div>
 	
 	<script type="text/javascript">
-		function startGame() {
-			if (typeof lime !== 'undefined' && lime.embed) {
-				console.log("Using lime.embed");
-				lime.embed("Kade Engine", "openfl-content", 1280, 720, { parameters: {} });
-			} else if (typeof openfl !== 'undefined' && openfl.embed) {
-				console.log("Using openfl.embed");
-				openfl.embed("Kade Engine", "openfl-content", 1280, 720, { parameters: {} });
-			} else if (typeof Application !== 'undefined') {
-				console.log("Using Application");
-				new Application();
-			} else {
-				console.log("Engine not ready, retrying...");
-				setTimeout(startGame, 100);
-			}
-		}
-		
-		document.addEventListener('DOMContentLoaded', function() {
-			setTimeout(startGame, 1000);
-		});
-	</script>
+function startGame() {
+    if (typeof lime !== 'undefined' && lime.embed) {
+        lime.embed("Kade Engine", "openfl-content", 1280, 720, { parameters: {} });
+    } else {
+        console.log("lime not ready yet, retrying...");
+        setTimeout(startGame, 100);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(startGame, 500); // wait a bit then try starting
+});
+</script>
 </body>
 </html>
+
